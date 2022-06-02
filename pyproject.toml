@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "statistical_rethinking"
+version = "0.0.1"
+description = ""
+authors = ["Lisa Mattrisch"]
+
+[tool.poetry.dependencies]
+python = "3.10.*"
+
+matplotlib ="*"
+mypy = "*"
+numpy = "*"
+pylint = "*"
+scipy = "*"
+toml = "*"
+yapf = "*"
