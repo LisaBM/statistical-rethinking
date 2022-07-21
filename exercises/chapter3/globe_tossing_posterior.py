@@ -1,7 +1,7 @@
 import argparse
+import pathlib
 
 import matplotlib.pyplot as plt
-from soupsieve import match
 import numpy as np
 from scipy.stats import binom
 
@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
                         type=int,
                         required=True)
     parser.add_argument("--prior", default="uniform", required=False)
+    parser.add_argument("--output-dir", dest="output_dir", type=pathlib.Path, required=True)
     return parser.parse_args()
 
 
@@ -41,9 +42,11 @@ def run() -> None:
     posterior = likelihood * prior
     posterior /= sum(posterior)
     samples = np.random.choice(p_grid, size=10000, replace=True, p=posterior)
-    np.save("samples", samples)
+
+    pathlib.Path.mkdir(args.output_dir, parents=True, exist_ok=True)
+    np.save(args.output_dir / "samples", samples)
     plt.hist(samples, bins=100)
-    plt.savefig("postrior")
+    plt.savefig(args.output_dir / "postrior")
 
 
 if __name__ == "__main__":

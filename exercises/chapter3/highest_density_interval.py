@@ -8,12 +8,13 @@ import pymc3
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mass", dest="mass", type=float, required=True)
+    parser.add_argument("--input-data", "-i", dest="input_data", required=True)
     return parser.parse_args()
 
 
 def run() -> None:
     args = parse_args()
-    samples = np.load("samples.npy")
+    samples = np.load(args.input_data)
 
     hdi = pymc3.stats.hdi(samples, hdi_prob=args.mass)
 

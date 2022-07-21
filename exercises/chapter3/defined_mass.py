@@ -10,12 +10,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--below", dest="below", action="store_true")
     parser.add_argument("--above", dest="above", action="store_true")
     parser.add_argument("--central", dest="central", action="store_true")
+    parser.add_argument("--input-data", "-i", dest="input_data", required=True)
     return parser.parse_args()
 
 
 def run() -> None:
     args = parse_args()
-    samples = np.load("samples.npy")
+    samples = np.load(args.input_data)
 
     if args.below:
         percentile = np.percentile(samples, args.mass * 100)

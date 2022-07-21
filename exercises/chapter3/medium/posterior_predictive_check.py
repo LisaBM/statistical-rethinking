@@ -12,12 +12,13 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--n-tosses", "-n", dest="n_tosses", type=int, required=True)
     parser.add_argument("--n-water", "-k", dest="n_water", type=int, required=True)
+    parser.add_argument("--input-data", "-i", dest="input_data", required=True)
     return parser.parse_args()
 
 
 def run() -> None:
     args = parse_args()
-    samples = np.load("samples.npy")
+    samples = np.load(args.input_data)
 
     prob = 0
     for p in samples:
